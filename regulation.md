@@ -118,9 +118,7 @@ jQuery变量要求首字符为‘$’, 其他与原生JavaScript 规则相同, �
 3. 编码必须格式化, 比如缩进;
 
 
->测试工具: 前期开发仅测试FireFox & IE6 & IE7 & IE8 , 后期优化时加入Opera & Chrome(项目时间允许的话可加入Safari,Safari内核与Chrome相同);
->
-建议测试顺序: FireFox–>IE7–>IE8–>IE6–>Opera–>Chrome, 建议安装firebug及IE Tab Plus插件.
+>测试工具: 本公司所有项目必须兼容IE9+、chrome（opera）、firefox、safari;
 
 ## 其他规范
 
