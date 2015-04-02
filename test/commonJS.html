@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>PinbotFED公共CSS样式表</title>
+    <link rel="stylesheet" href="../css/common.min.css">
+    <style>
+    h1{
+        font-size: 35px;
+    }
+    h2{
+        font-size: 28px;
+        border-bottom: solid 1px #ddd;
+    }
+    dt,dd{
+        line-height: 1.8em;
+    }
+    .mt50{
+        margin-top: 50px;
+    }
+    .note,pre{
+        background: #eee;
+        padding: 20px;
+        line-height: 1.8em;
+    }
+    pre{
+        margin: 0 50px;
+        background: #ddd;
+        border: dashed 1px #ccc;
+    }
+    .show-box{
+        margin: 0 50px;
+        border: solid 1px #ddd;
+    }
+    </style>
+</head>
+<body>
+
+    <script src="http://127.0.0.1:8000/static/common/js/pb.common.js?20150402"></script>
+
+    <header class="mt20">
+        <h1 class="text-center">PinbotFED pb.common.js文件说明</h1>
+    </header>
+    
+    <div class="inner-content mt50">
+        <p class="note">
+            pb.common.js由 jquery-1.11.1.min.js 与 basic.js合并而来。<br>
+            本文主要是讲 <strong>basic.js</strong>;<br>
+            css定义都放在<a href="../css/common.css" target="_blank">../css/common.css</a>;<br>
+            为了方便示例，本网页会前置加载pb.common.js;
+        </p>
+    </div>
+
+    <div class="inner-content mt50">
+        <h2>$.LayerOut</h2>
+        <div class="note">
+            <dl>
+                <dt>含义：弹出一个空白的层;</dt>
+                <dd>使用方法 $.LayerOut({config}) </dd>
+                <dd>
+                    <p>example：</p>
+                    <pre class="mt20">
+                        &lt;p>&lt;button class="button button-normal">点我弹出LayerOut&lt;/button></p>
+                        &lt;script type="text/javascript">
+                            $('#JS_layerout').on('click',function(){
+                                $.LayerOut({
+                                    title: '这是一个普通的弹出层',
+                                    html: '&lt;p>hello world！&lt;/p>',
+                                    handlers: [
+                                        {
+                                            title: '关闭',
+                                            eventType: 'click',
+                                            className: 'layer-button blue-button',
+                                            event: function(){
+                                                if( typeof onOk == 'function' ){
+                                                    onOk();
+                                                };
+                                                $._LayerOut.close();
+                                            }
+                                        }
+                                    ]
+                                });
+                            })
+                        &lt;/script>
+                    </pre>
+                    <p style="padding-left: 50px" class="mt20"><button class="button button-normal" id="JS_layerout">点我弹出LayerOut</button></p>
+                    <script type="text/javascript">
+                        $('#JS_layerout').on('click',function(){
+                            $.LayerOut({
+                                title: '这是一个普通的弹出层',
+                                html: '<p>hello world！</p>',
+                                handlers: [
+                                    {
+                                        title: '关闭',
+                                        eventType: 'click',
+                                        className: 'layer-button blue-button',
+                                        event: function(){
+                                            if( typeof onOk == 'function' ){
+                                                onOk();
+                                            };
+                                            $._LayerOut.close();
+                                        }
+                                    }
+                                ]
+                            });
+                        })
+                    </script>
+                </dd>
+                <dd>
+                    <p class="mt20">参数说明:</p>
+                    <table width="100%" cellspacing="0" cellspadding="0" class="table mt20">
+                        <tr>
+                            <th width="150">参数名称</th>
+                            <th>说明</th>
+                        </tr>
+                        <tr>
+                            <td>title</td>
+                            <td>弹窗标题,缺省不显示;</td>
+                        </tr>
+                        <tr>
+                            <td>html</td>
+                            <td>弹窗内部的html代码;</td>
+                        </tr>
+                        <tr>
+                            <td>dialogCss</td>
+                            <td>弹窗正文box的样式内容（style非class）;</td>
+                        </tr>
+                        <tr>
+                            <td>handlers</td>
+                            <td>
+                                <p>
+                                    弹出层的按钮组；<br>
+                                    array: [{ title | eventType | confirmByShadow | className | event },{...},{...}]
+                                </p>
+
+                                <p class="mt20">按钮参数说明:</p>
+                                <table cellspacing="0" cellspadding="0" class="table mt20" style="width: 80%;">
+                                    <tr>
+                                        <th width="130">参数名称</th>
+                                        <th>说明</th>
+                                    </tr>
+                                    <tr>
+                                        <td>title</td>
+                                        <td>按钮上的文字：如“确定”等；</td>
+                                    </tr>
+                                    <tr>
+                                        <td>eventType</td>
+                                        <td>按钮的事件方式： 如“click”、“mouseover”等；</td>
+                                    </tr>
+                                    <tr>
+                                        <td>confirmByShadow</td>
+                                        <td>同LayerOut的confirmByShadow；</td>
+                                    </tr>
+                                    <tr>
+                                        <td>className</td>
+                                        <td>按钮的css样式名称；</td>
+                                    </tr>
+                                    <tr>
+                                        <td>event</td>
+                                        <td>按钮的事件函数；</td>
+                                    </tr>
+                                </table>   
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>closeByShadow</td>
+                            <td>
+                                <p>
+                                    点击背景遮罩是否关闭弹窗；<br>
+                                    true：关闭 | false：不关闭；<br>
+                                    默认为true；
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>confirmByShadow</td>
+                            <td>
+                                <p>
+                                    点击背景遮罩是否执行确认操作（即执行handlers列表里面的第一个函数）；<br>
+                                    true：执行 | false：不执行；<br>
+                                    默认为true；
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>callback</td>
+                            <td>
+                                <p>
+                                    弹出层弹出以后执行的函数；
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="inner-content mt50">
+        <h2>$.alert</h2>
+        <div class="note">
+            <dl>
+                <dt>含义：弹出一个确认框（$.LayerOut再封装）;</dt>
+                <dd>使用方法 $.alert( html , onOk , title , setting ) </dd>
+                <dd>
+                    <p>example：</p>
+                    <pre class="mt20">
+                        &lt;p>&lt;button class="button button-normal">点我弹出LayerOut&lt;/button></p>
+                        &lt;script type="text/javascript">
+                            $('#JS_alert').on('click',function(){
+                                $.alert('确认关闭！');
+                            });
+                        &lt;/script>
+                    </pre>
+                    <p style="padding-left: 50px" class="mt20"><button class="button button-normal" id="JS_alert">点我弹出alert</button></p>
+                    <script type="text/javascript">
+                        $('#JS_alert').on('click',function(){
+                            $.alert('确认关闭！');
+                        });
+                    </script>
+                </dd>
+                <dd>
+                    <p class="mt20">参数说明:</p>
+                    <table width="100%" cellspacing="0" cellspadding="0" class="table mt20">
+                        <tr>
+                            <th width="150">参数名称</th>
+                            <th>说明</th>
+                        </tr>
+                        <tr>
+                            <td>title</td>
+                            <td>弹窗标题,缺省不显示;</td>
+                        </tr>
+                        <tr>
+                            <td>html</td>
+                            <td>弹窗内部的html代码;</td>
+                        </tr>
+                        <tr>
+                            <td>onOk</td>
+                            <td>点击“确认”按钮执行函数(function(){...})；</td>
+                        </tr>
+                        <tr>
+                            <td>setting</td>
+                            <td>详见$.LayerOut参数说明；</td>
+                        </tr>
+                    </table>
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="inner-content mt50">
+        <h2>$.confirm</h2>
+        <div class="note">
+            <dl>
+                <dt>含义：弹出一个确认框（$.LayerOut再封装）;</dt>
+                <dd>使用方法 $.confirm( html , onOk , onCancel , title , setting ) </dd>
+                <dd>
+                    <p>example：</p>
+                    <pre class="mt20">
+                        &lt;p style="padding-left: 50px" class="mt20">&lt;button class="button button-normal" id="JS_confirm">点我弹出confirm&lt;/button>&lt;/p>
+                        &lt;script type="text/javascript">
+                            $('#JS_confirm').on('click',function(){
+                                $.confirm('确定还是取消，这是一个question！');
+                            });
+                        &lt;/script>
+                    </pre>
+                    <p style="padding-left: 50px" class="mt20"><button class="button button-normal" id="JS_confirm">点我弹出confirm</button></p>
+                    <script type="text/javascript">
+                        $('#JS_confirm').on('click',function(){
+                            $.confirm('确定还是取消，这是一个question！');
+                        });
+                    </script>
+                </dd>
+                <dd>
+                    <p class="mt20">参数说明:</p>
+                    <table width="100%" cellspacing="0" cellspadding="0" class="table mt20">
+                        <tr>
+                            <th width="150">参数名称</th>
+                            <th>说明</th>
+                        </tr>
+                        <tr>
+                            <td>title</td>
+                            <td>弹窗标题,缺省不显示;</td>
+                        </tr>
+                        <tr>
+                            <td>html</td>
+                            <td>弹窗内部的html代码;</td>
+                        </tr>
+                        <tr>
+                            <td>onOk</td>
+                            <td>点击“确认”按钮执行函数(function(){...})；</td>
+                        </tr>
+                        <tr>
+                            <td>onCancel</td>
+                            <td>点击“取消”按钮执行函数(function(){...})；</td>
+                        </tr>
+                        <tr>
+                            <td>setting</td>
+                            <td>详见$.LayerOut参数说明；</td>
+                        </tr>
+                    </table>
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -28,3 +28,6 @@ common.css包含reset、common、font、color、form、table、layerout、button
 
 ## Button css
 按钮目前暂定了2种大小、2种默认样式，分别都对应default、hover、active、disabled;
+
+>
+[Pinbot B端css样式示例](https://github.com/Andyczc/PinbotFED/blob/master/test/b_commonCss.html)
