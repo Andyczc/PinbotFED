@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>PinbotFED公共CSS样式表</title>
+    <link rel="stylesheet" href="../css/common.min.css">
+    <style>
+    h1{
+        font-size: 35px;
+    }
+    h2{
+        font-size: 28px;
+        border-bottom: solid 1px #ddd;
+    }
+    dt,dd{
+        line-height: 1.8em;
+    }
+    .mt50{
+        margin-top: 50px;
+    }
+    .note,pre{
+        background: #eee;
+        padding: 20px;
+    }
+    pre{
+        margin: 0 50px;
+        background: #ddd;
+        border: dashed 1px #ccc;
+    }
+    .show-box{
+        margin: 0 50px;
+        border: solid 1px #ddd;
+    }
+    .input.focus,.select.focus,.textarea.focus{
+        border: solid 1px #44b5e8;
+        color: #44b5e8;
+    }
+    .button:not(disabled).hover{
+        color: #fff;
+        background: #63c2ec;
+        border: solid 1px #63c2ec;
+    }
+    .button:not(disabled).active{
+        color: #fff;
+        background: #2899CD;
+        border: solid 1px #2899CD;
+    }
+    .w120{
+        width: 120px;
+    }
+    </style>
+</head>
+<body>
+    
+    <header class="inner-content mt20">
+        <h1 class="text-center">PinbotFED公共CSS样式表</h1>
+    </header>
+    
+    <div class="inner-content mt50">
+        <p class="note">
+            <strong>"作为一个有逼（dou）格（bi）的互联网前端团队，追逐新技术是不变的追求" 聘宝说。</strong><br>
+            common.css包含reset、common、font、color、form、table、layerout、button等，这个版本只是针对Pinbot B端产品设计，还需要不断完善，有建议和意见的道友可以提出来，经过大家的讨论来决定增减。<br><br>
+            注：本页面还在&lt;head>...&lt;/head>之间定义了其他样式，在实际引用的时候需要注意。
+        </p>
+    </div>
+    
+    <div class="inner-content mt50">
+        <h2>Reset css</h2>
+        <div class="note">
+            <dl>
+                <dt>含义：把浏览器提供的默认样式覆盖掉,以保证各浏览器的默认样式一致！这就是CSS reset;</dt>
+                <dd>内容：包括基本的padding、margin、outline、font-size、line-height、vertical-align设置,Html5标签默认样式定义等;</dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="inner-content mt50">
+        <h2>Font css</h2>
+        <div class="note">
+            <dl>
+                <dt>默认设置了.simsun(宋体)、.tahoma、.georgia、.arial、.yahei字体;</dt>
+                <dd class="mt10">
+                    <table class="table" cellspadding="0" cellspacing="0" width="500" align="center">
+                        <tr>
+                            <th class="simsun">.simsun</th>
+                            <th class="tahoma">.tahoma</th>
+                            <th class="georgia">.georgia</th>
+                            <th class="arial">.arial</th>
+                            <th class="yahei">.yahei</th>
+                        </tr>
+                        <tr>
+                            <td class="simsun">聘宝，专业人才推荐Beta2.0</td>
+                            <td class="tahoma">聘宝，专业人才推荐Beta2.0</td>
+                            <td class="georgia">聘宝，专业人才推荐Beta2.0</td>
+                            <td class="arial">聘宝，专业人才推荐Beta2.0</td>
+                            <td class="yahei">聘宝，专业人才推荐Beta2.0</td>
+                        </tr>
+                    </table>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    
+    <div class="inner-content mt50">
+        <h2>Common css</h2>
+        <div class="note">
+            <dl>
+                <dt>含义：常用的css样式,目前定义了.clearfix、.left、.right、.clearBoth、.inline-block、.block、.text-center、.text-left、.text-right、.relative、.absolute、.fixed、.none、.text-overflow、.bold、.mt20、.mt10、.ml20、.ml10、H1、H2、H3、H4、H5、H6等;</dt>
+                <dd class="mt20">
+                    <h3>1、.clearfix（清除浮动）、.left（左浮动）、.right（右浮动）、.clearBoth(清除浮动)</h3>
+                    <pre class="text-left">
+                        &lt;div class="show-box mt20">
+                            &lt;h3>1、.clearfix（清除浮动）、.left（左浮动）、.right（右浮动）&lt;/h3>
+                            &lt;div class="clearfix">
+                                &lt;span class="blue">我不浮动！&lt;/span>
+                                &lt;div class="left red">我左浮动！&lt;/div>
+                                &lt;div class="right orange">我右浮动！&lt;/div>
+                            &lt;/div>
+                        &lt;/div>
+
+                        &lt;div class="show-box mt20">
+                            &lt;h3>1、.clearfix（清除浮动）、.left（左浮动）、.right（右浮动）&lt;/h3>
+                            &lt;div>
+                                &lt;span class="blue">我不浮动！&lt;/span>
+                                &lt;div class="left red">我左浮动！&lt;/div>
+                                &lt;div class="right orange">我右浮动！&lt;/div>
+                                &lt;div class="clearBoth">&lt;/div>
+                            &lt;/div>
+                        &lt;/div>
+
+                    </pre>
+                    <div class="show-box mt20">
+                        <div class="clearfix">
+                            <span class="blue">我不浮动！</span>
+                            <div class="left red">我左浮动！</div>
+                            <div class="right orange">我右浮动！</div>
+                        </div>
+                    </div>
+                    <div class="show-box mt20">
+                        <div>
+                            <span class="blue">我不浮动！</span>
+                            <div class="left red">我左浮动！</div>
+                            <div class="right orange">我右浮动！</div>
+                            <div class="clearBoth"></div>
+                        </div>
+                    </div>
+                </dd>
+                <dd class="mt20">
+                    <h3>2、.inline-block(行内块级元素)、.block(块级元素)</h3>
+                    <pre class="text-left">
+                        &lt;div class="show-box mt20">
+                            &lt;div class="clearfix">
+                                &lt;div class="inline-block blue">我是行内块级元素！&lt;/div>
+                                &lt;span class="red">我要坐第一排</span>
+                                &lt;div class="block orange">我是块级元素！&lt;/div>
+                            &lt;/div>
+                        &lt;/div>
+                    </pre>
+                    <div class="show-box mt20">
+                        <div class="clearfix">
+                            <div class="inline-block blue">我是行内块级元素！</div>
+                            <span class="red">我要坐第一排</span>
+                            <div class="block orange">我是块级元素！</div>
+                        </div>
+                    </div>
+                </dd>
+                <dd class="mt20">
+                    <h3>3、.text-center(居中对齐)、.text-left（居左对齐）、.text-right（居右对齐）</h3>
+                    <pre class="text-left">
+                        &lt;div class="show-box mt20">
+                            &lt;div class="text-left">我是行内块级元素！&lt;/div>
+                            &lt;div class="text-center">我是行内块级元素！&lt;/div>
+                            &lt;div class="text-right">我是块级元素！&lt;/div>
+                        &lt;/div>
+                    </pre>
+                    <div class="show-box mt20">
+                        <div class="text-left">left</div>
+                        <div class="text-center">center</div>
+                        <div class="text-right">right</div>
+                    </div>
+                </dd>
+
+                <dd class="mt20">
+                    <h3>4、.relative（相对定位）、.absolute（绝对定位）、.fixed(绝对定位)</h3>
+                    <pre class="text-left">
+                        &lt;div class="show-box mt20">
+                            &lt;div class="relative" style="height:50px">
+                                &lt;div class="relative" style="background:red;">relative&lt;/div>
+                                &lt;div class="absolute" style="width:100px;height:50px;background:blue; top:0px; left: 150px;">absolute&lt;/div>
+                            &lt;/div>
+                        &lt;/div>
+                    </pre>
+                    <div class="show-box mt20">
+                        <div class="relative" style="height:50px">
+                            <div class="relative" style="background:red;">relative</div>
+                            <div class="absolute" style="width:100px;height:50px;background:blue; top:0px; left: 150px;">absolute</div>
+                        </div>
+                    </div>
+                </dd>
+
+                <dd class="mt20">
+                    <h3>5、.none(隐藏)</h3>
+                    <pre class="text-left">
+                        &lt;div class="show-box mt20">
+                            &lt;div class="none">我是隐藏的。&lt;/div>
+                        &lt;/div>
+                    </pre>
+                    <div class="show-box mt20">
+                        <div class="none">我是隐藏的。</div>
+                    </div>
+                </dd>
+
+                <dd class="mt20">
+                    <h3>6、.text-overflow(超出隐藏：宽度需要另设)</h3>
+                    <pre class="text-left">
+                        &lt;div class="show-box mt20">
+                            &lt;div class="text-overflow" style="width:150px">我很长我很长我很长我很长我很长我很长我很长我很长我很长我很长很长&lt;/div>
+                        &lt;/div>
+                    </pre>
+                    <div class="show-box mt20">
+                        <div class="text-overflow" style="width:150px">我很长我很长我很长我很长我很长我很长我很长我很长我很长我很长我很长我很长我很长我很长</div>
+                    </div>
+                </dd>
+
+                <dd class="mt20">
+                    <h3>7、.bold(加粗)</h3>
+                    <pre class="text-left">
+                        &lt;div class="show-box mt20">
+                            &lt;span class="bold">我很粗&lt;/span>
+                        &lt;/div>
+                    </pre>
+                    <div class="show-box mt20">
+                        <span class="bold">我很粗</span>
+                    </div>
+                </dd>
+
+                <dd class="mt20">
+                    <h3>7、header</h3>
+                    <pre class="text-left">
+                        &lt;div class="show-box mt20">
+                            &lt;h1>聘宝，专业人才推荐&lt;/h1>
+                            &lt;h2>聘宝，专业人才推荐&lt;/h2>
+                            &lt;h3>聘宝，专业人才推荐&lt;/h3>
+                            &lt;h4>聘宝，专业人才推荐&lt;/h4>
+                            &lt;h5>聘宝，专业人才推荐&lt;/h5>
+                            &lt;h6>聘宝，专业人才推荐&lt;/h6>
+                        &lt;/div>
+                    </pre>
+                    <div class="show-box mt20">
+                        <h1>聘宝，专业人才推荐</h1>
+                        <h2>聘宝，专业人才推荐</h2>
+                        <h3>聘宝，专业人才推荐</h3>
+                        <h4>聘宝，专业人才推荐</h4>
+                        <h5>聘宝，专业人才推荐</h5>
+                        <h6>聘宝，专业人才推荐</h6>
+                    </div>
+                </dd>
+
+            </dl>
+        </div>
+    </div>
+    
+    <div class="inner-content mt50">
+        <h2>Color css</h2>
+        <div class="note">
+            <dl>
+                <dt>默认设置了.black、.blue、.red、.lime、.green、.orange、.c333、.c666、c999;</dt>
+                <dd class="mt10">
+                    <table class="table" cellspadding="0" cellspacing="0" width="500" align="center">
+                        <tr>
+                            <td><span class="black">.black</span></td>
+                            <td><span class="blue">.blue</span></td>
+                            <td><span class="red">.red</span></td>
+                            <td><span class="lime">.lime</span></td>
+                            <td><span class="green">.green</span></td>
+                            <td><span class="orange">.orange</span></td>
+                            <td><span class="c333">.c333</span></td>
+                            <td><span class="c666">.c666</span></td>
+                            <td><span class="c999">.c999</span></td>
+                        </tr>
+                    </table>
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="inner-content mt50">
+        <h2>Form css</h2>
+        <div class="note">
+            <dl>
+                <dt>默认设置了.input、.select、.textarea;</dt>
+                <dd class="mt10">
+                    <form action="">
+                        <table class="table" cellspadding="0" cellspacing="0" width="500" align="center">
+                            <tr>
+                                <th>element</th>
+                                <th>default</th>
+                                <th>focus</th>
+                                <th>error</th>
+                            </tr>
+                            <tr>
+                                <td>input</td>
+                                <td><input type="text" class="input" value="pinbotFED"></td>
+                                <td><input type="text" class="input focus" value="pinbotFED"></td>
+                                <td><input type="text" class="input error" value="pinbotFED"></td>
+                            </tr>
+                            <tr>
+                                <td>select</td>
+                                <td>
+                                    <select name="" id="" class="select">
+                                        <option value="">A</option>
+                                        <option value="">B</option>
+                                        <option value="">C</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="" id="" class="select focus">
+                                        <option value="">A</option>
+                                        <option value="">B</option>
+                                        <option value="">C</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="" id="" class="select error">
+                                        <option value="">A</option>
+                                        <option value="">B</option>
+                                        <option value="">C</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>textarea</td>
+                                <td><textarea name="" id="" rows="3" class="textarea">这里是文本域！</textarea></td>
+                                <td><textarea name="" id="" rows="3" class="textarea focus">这里是文本域！</textarea></td>
+                                <td><textarea name="" id="" rows="3" class="textarea error">这里是文本域！</textarea></td>
+                            </tr>
+                        </table>
+                    </form>
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="inner-content mt50">
+        <h2>Table css</h2>
+        <div class="note">
+            <p>目前只定义了一套默认的css，.table</p>
+            <table class="table" cellspadding="0" cellspacing="0" width="500" align="center">
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                </tr>
+                <tr>
+                    <td>Andy</td>
+                    <td>18</td>
+                    <td>male</td>
+                </tr>
+                <tr>
+                    <td>Li Yao</td>
+                    <td>18</td>
+                    <td>male</td>
+                </tr>
+                <tr>
+                    <td>Lili Zhou</td>
+                    <td>18</td>
+                    <td>female</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="inner-content mt50">
+        <h2>Layerout css</h2>
+        <div class="note">
+            弹窗组件具体参照 <a href="commonJS.html" target="_blank">commonJS.html</a>
+        </div>
+    </div>
+
+    <div class="inner-content mt50">
+        <h2>Button css</h2>
+        <div class="note">
+            <dl>
+                <dt>按钮目前暂定了2种大小、2种默认样式，分别都对应default、hover、active、disabled</dt>
+                <dd>
+                    <table class="table" cellspadding="0" cellspacing="0" width="500" align="center">
+                        <tr>
+                            <th width="200">type</th>
+                            <th>default</th>
+                            <th>hover</th>
+                            <th>active</th>
+                            <th>disabled</th>
+                        </tr>
+                        <tr>
+                            <td>.button .button-normal</td>
+                            <td>
+                                <button class="button button-normal">default</button>
+                            </td>
+                            <td>
+                                <button class="button button-normal hover">hover</button>
+                            </td>
+                            <td>
+                                <button class="button button-normal active">active</button>
+                            </td>
+                            <td>
+                                <button class="button button-normal" disabled>disabled</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.button .button-primary</td>
+                            <td>
+                                <button class="button button-primary">default</button>
+                            </td>
+                            <td>
+                                <button class="button button-primary hover">hover</button>
+                            </td>
+                            <td>
+                                <button class="button button-primary active">active</button>
+                            </td>
+                            <td>
+                                <button class="button button-primary" disabled>disabled</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.button .button-big .button-primary</td>
+                            <td>
+                                <button class="button button-big button-primary">default</button>
+                            </td>
+                            <td>
+                                <button class="button button-big button-primary hover">hover</button>
+                            </td>
+                            <td>
+                                <button class="button button-big button-primary active">active</button>
+                            </td>
+                            <td>
+                                <button class="button button-big button-primary" disabled>disabled</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>.button .button-big .button-primary <strong><abbr title="w120为自定义宽度样式">.w120<span class="red">?</span></abbr></strong></td>
+                            <td>
+                                <button class="button button-big button-primary w120">default</button>
+                            </td>
+                            <td>
+                                <button class="button button-big button-primary hover w120">hover</button>
+                            </td>
+                            <td>
+                                <button class="button button-big button-primary active w120">active</button>
+                            </td>
+                            <td>
+                                <button class="button button-big button-primary w120" disabled>disabled</button>
+                            </td>
+                        </tr>
+                    </table>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    
+    <footer class="mt50">
+        <div class="note inner-content c999 text-right">
+            以上样式定义皆为beta版本，后期会不断完善。
+        </div>
+    </footer>
+</body>
+</html>

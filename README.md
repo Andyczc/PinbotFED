@@ -2,4 +2,6 @@
 
 ### [*Markdown——入门指南*](http://www.jianshu.com/p/1e402922ee32/)
 
-### [*PinbotFED开发规范*](http://www.jianshu.com/p/1e402922ee32/)
+### [*PinbotFED开发规范*](https://github.com/Andyczc/PinbotFED/blob/master/regulation.md)
+
+### [*PinbotFED B端公共css样式表*](https://github.com/Andyczc/PinbotFED/blob/master/b_commonCss.md)
