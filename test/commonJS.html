@@ -37,7 +37,7 @@
 </head>
 <body>
 
-    <script src="http://127.0.0.1:8000/static/common/js/pb.common.js?20150402"></script>
+    <script src="../js/pb.common.js?20150402"></script>
 
     <header class="mt20">
         <h1 class="text-center">PinbotFED pb.common.js文件说明</h1>
@@ -48,7 +48,8 @@
             pb.common.js由 jquery-1.11.1.min.js 与 basic.js合并而来。<br>
             本文主要是讲 <strong>basic.js</strong>;<br>
             css定义都放在<a href="../css/common.css" target="_blank">../css/common.css</a>;<br>
-            为了方便示例，本网页会前置加载pb.common.js;
+            为了方便示例，本网页会前置加载pb.common.js;<br>
+            <span class="red">红色名字的组件比较复杂，使用前需要仔细研读说明和源码；</span>
         </p>
     </div>
 
@@ -177,7 +178,7 @@
                             <td>confirmByShadow</td>
                             <td>
                                 <p>
-                                    点击背景遮罩是否执行确认操作（即执行handlers列表里面的第一个函数）；<br>
+                                    点击背景遮罩是否执行确认操作（即执行handlers列表里面的第一个函数,建议只在$.confirm和$.alert使用）；<br>
                                     true：执行 | false：不执行；<br>
                                     默认为true；
                                 </p>
@@ -300,6 +301,437 @@
                             <td>详见$.LayerOut参数说明；</td>
                         </tr>
                     </table>
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="inner-content mt50">
+        <h2 class="red">$.Click</h2>
+        <div class="note">
+            <dl>
+                <dt>含义：基于JQuery对html元素点击事件的再封装,实现了防止重复点击等功能;</dt>
+                <dd>使用方法 $.Click({ dom | before | callback }) </dd>
+                <dd>
+                    <p>example：</p>
+                    <pre class="mt20">
+                        &lt;p style="padding-left: 50px" class="mt20">&lt;button class="button button-normal" id="JS_click">点我弹出 click&lt;/button>&lt;/p>
+                        &lt;script type="text/javascript">
+                            $('#JS_click').on('click', function(){
+                                $.Click({
+                                    dom: this,
+                                    before: function(){
+                                        alert( 1 );
+                                        return true;
+                                    },
+                                    callback: function(){
+                                        alert( 'callback' );
+                                        $('#JS_click').removeClass('locked-click');
+                                    }
+                                });
+                            });
+                        &lt;/script>
+                    </pre>
+                    <p style="padding-left: 50px" class="mt20"><button class="button button-normal" id="JS_click">点我弹出 click</button></p>
+                    <script type="text/javascript">
+                        $('#JS_click').on('click', function(){
+                            $.Click({
+                                dom: this,
+                                before: function(){
+                                    alert( 1 );
+                                    return true;
+                                },
+                                callback: function(){
+                                    alert( 'callback' );
+                                    $('#JS_click').removeClass('locked-click');
+                                }
+                            });
+                        });
+                    </script>
+                </dd>
+                <dd>
+                    <p class="mt20">参数说明:</p>
+                    <table width="100%" cellspacing="0" cellspadding="0" class="table mt20">
+                        <tr>
+                            <th width="150">参数名称</th>
+                            <th>说明</th>
+                        </tr>
+                        <tr>
+                            <td>dom</td>
+                            <td>必须， 绑定事件的html对象;</td>
+                        </tr>
+                        <tr>
+                            <td>before</td>
+                            <td>非必须， 在点击事件触发前执行的函数（可用作判断点击状态）;</td>
+                        </tr>
+                        <tr>
+                            <td>callback</td>
+                            <td>必须， 点击事件成功后运行的回调函数。</td>
+                        </tr>
+                    </table>
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="inner-content mt50">
+        <h2 class="red">$.Ajax</h2>
+        <div class="note">
+            <dl>
+                <dt>含义：基于JQuery对ajax请求事件的再封装;</dt>
+                <dd>使用方法 $.Ajax({ url | form | callDom | method | data | failed | successed | verify | callback }) </dd>
+                <dd>
+                    <p>example：</p>
+                    <pre class="mt20">
+                        &lt;p style="padding-left: 50px" class="mt20">&lt;button class="button button-normal" id="JS_ajax_get">点我发送get请求&lt;/button>&lt;/p>
+                        &lt;script type="text/javascript">
+                            $('#JS_ajax_get').on('click', function(){
+                                $.Ajax({
+                                    callDom: this,
+                                    url: 'http://google.com/',
+                                    method: 'get'
+                                });
+                            });
+                        &lt;/script>
+                    </pre>
+                    
+                    <p style="padding-left: 50px" class="mt20"><button class="button button-normal" id="JS_ajax_get">点我发送get请求</button></p>
+                    <script type="text/javascript">
+                        $('#JS_ajax_get').on('click', function(){
+                            $.Ajax({
+                                callDom: this,
+                                url: 'http://google.com/',
+                                method: 'get'
+                            });
+                        });
+                    </script>
+                    
+                    <pre class="mt20">
+                        &lt;div class="note">
+                            &lt;form action="http://google.com/">
+                                &lt;p style="padding-left: 50px" class="mt20">登录&lt;/p>
+                                &lt;p style="padding-left: 50px" class="mt20">&lt;input type="text" name="username" class="input">&lt;/p>
+                                &lt;p style="padding-left: 50px" class="mt20">&lt;input type="password" name="password"  class="input">&lt;/p>
+                                &lt;p style="padding-left: 50px" class="mt20">
+                                    &lt;button class="button button-normal" id="JS_ajax_post" type="button">点我发送post请求&lt;/button>
+                                &lt;/p>
+                            &lt;/form>
+                        &lt;/div>
+                        &lt;script type="text/javascript">
+                            $('#JS_ajax_post').on('click', function(){
+                                $.Ajax({
+                                    url: 'http://google.com/',
+                                    callDom: this,
+                                    form: $( this ).closest('form')[0],
+                                    method: 'post'
+                                });
+                            });
+                        &lt;/script>
+                    </pre>
+
+                    <div class="note">
+                        <form action="http://google.com/">
+                            <p style="padding-left: 50px" class="mt20">登录</p>
+                            <p style="padding-left: 50px" class="mt20"><input type="text" name="username" class="input"></p>
+                            <p style="padding-left: 50px" class="mt20"><input type="password" name="password"  class="input"></p>
+                            <p style="padding-left: 50px" class="mt20">
+                                <button class="button button-normal" id="JS_ajax_post" type="button">点我发送post请求</button>
+                            </p>
+                        </form>
+                    </div>
+                    <script type="text/javascript">
+                        $('#JS_ajax_post').on('click', function(){
+                            $.Ajax({
+                                url: 'http://google.com/',
+                                callDom: this,
+                                form: $( this ).closest('form')[0],
+                                method: 'post'
+                            });
+                        });
+                    </script>
+
+                </dd>
+                <dd>
+                    <p class="mt20">参数说明:</p>
+                    <table width="100%" cellspacing="0" cellspadding="0" class="table mt20">
+                        <tr>
+                            <th width="150">参数名称</th>
+                            <th>说明</th>
+                        </tr>
+                        <tr>
+                            <td>url</td>
+                            <td>必须，请求的url地址;</td>
+                        </tr>
+                        <tr>
+                            <td>form</td>
+                            <td>非必须，代表html表单元素（method为post才有用）;</td>
+                        </tr>
+                        <tr>
+                            <td>callDom</td>
+                            <td>非必须，调用Ajax的html元素，一般是用来释放锁定；</td>
+                        </tr>
+                        <tr>
+                            <td>method</td>
+                            <td>必须，ajax请求方式；</td>
+                        </tr>
+                        <tr>
+                            <td>data</td>
+                            <td>
+                                <p>
+                                    非必须，请求时发送的数据；<br>
+                                    指定方式：<br>
+                                    1.直接在调用$.Ajax({config})的config里面指定；<br>
+                                    2.指定form并且缺省该字段则会根据form来调用$(form).serializeObject()方法获取json并赋值给data；
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>failed</td>
+                            <td>非必须，ajax请求失败时触发函数，类似于$.ajax的fail()；</td>
+                        </tr>
+                        <tr>
+                            <td>successed</td>
+                            <td>非必须，ajax请求成功时触发函数，类似于$.ajax的success(),缺省则根据默认的函数执行；</td>
+                        </tr>
+                        <tr>
+                            <td>verify</td>
+                            <td>
+                                <p>
+                                    非必须，请求前执行的验证函数，<br>
+                                    为了不让代码耦合，该函数不接收参数,要验证的数据请开发者自己在函数内获取与验证；<br>
+                                    返回值 true | false，true：验证通过，false：验证不通过；
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>callback</td>
+                            <td>非必须，ajax请求发出后触发函数，与ajax请求无关；</td>
+                        </tr>
+                    </table>
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="inner-content mt50">
+        <h2 class="red">$.commonAjax</h2>
+        <div class="note">
+            <dl>
+                <dt>含义：$.Click与$.Ajax组合封装，通过在html元素本身配置相关参数，实现了简单get与复杂post请求的功能;</dt>
+                <dd>使用方法 $.commonAjax()，函数体内this指向调用函数的html元素，参数都在调用函数的html元素身上配置；</dd>
+                <dd>
+                    <p>example：</p>
+                    <pre class="mt20">
+                        &lt;p style="padding-left: 50px" class="mt20">
+                            &lt;button class="button button-normal" id="JS_commonAjax" data-ajax_url="http://baidu.com/" data-ajax_common_type="normal">
+                                点我发起get请求
+                            &lt;/button>
+                        &lt;/p>
+                        &lt;script type="text/javascript">
+                            $('#JS_commonAjax').on('click', $.commonAjax);
+                        &lt;/script>
+                    </pre>
+
+                    <p style="padding-left: 50px" class="mt20"><button class="button button-normal" id="JS_commonAjax" data-ajax_url="http://baidu.com/" data-ajax_common_type="normal">点我发起get请求</button></p>
+                    <script type="text/javascript">
+                        $('#JS_commonAjax').on('click', $.commonAjax);
+                    </script>
+                    
+                    <pre class="mt20">
+                        &lt;p style="padding-left: 50px" class="mt20">
+                            &lt;button class="button button-normal" id="JS_commonAjax1" data-ajax_url="http://baidu.com/" data-ajax_common_type="normal" disabled>
+                                我被禁用了!点我不会发送请求
+                            &lt;/button>
+                        &lt;/p>
+                        &lt;script type="text/javascript">
+                            $('#JS_commonAjax1').on('click', function(){
+                                if( $( this ).attr('disabled') ) return false;
+                                $.commonAjax.call( this );
+                            });
+                        &lt;/script>
+                    </pre>
+
+                    <p style="padding-left: 50px" class="mt20"><button class="button button-normal" id="JS_commonAjax1" data-ajax_url="http://baidu.com/" data-ajax_common_type="normal" disabled>我被禁用了!点我不会发送请求</button></p>
+                    <script type="text/javascript">
+                        $('#JS_commonAjax1').on('click', function(){
+                            if( $( this ).attr('disabled') ) return false;
+                            $.commonAjax.call( this );
+                        });
+                    </script>
+
+                </dd>
+                <dd>
+                    <p class="mt20">参数说明:</p>
+                    <table width="100%" cellspacing="0" cellspadding="0" class="table mt20">
+                        <tr>
+                            <th width="180">Html参数名称</th>
+                            <th>说明</th>
+                        </tr>
+                        <tr>
+                            <td>data-before</td>
+                            <td>
+                                <p>
+                                    非必须，与$.Click的before参数一致<span class="red">(注：因为该函数名称是配置在html元素身上，所以为了方便，请务必把该函数定义在window全局作用域,再把函数名称赋值给data-before参数)</span>;
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>data-ajax_common_type</td>
+                            <td>
+                                <p>
+                                    非必须：标示是普通请求(normal)还是复杂（other）请求，默认为复杂请求；<br>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>data-ajax_verify</td>
+                            <td>
+                                <p>
+                                    非必须，同$.Ajax的verify参数<span class="red">(注：因为该函数名称是配置在html元素身上，所以为了方便，请务必把该函数定义在window全局作用域,再把函数名称赋值给data-ajax_verify参数)</span>；
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>data-method</td>
+                            <td>非必须，请求的方式，缺省则根据data-ajax_common_type来配置：normal：get | other：post；</td>
+                        </tr>
+                        <tr>
+                            <td>data-form</td>
+                            <td>非必须，当data-ajax_common_type为other时可用，用于指定form表单，缺省则默认为html元素所在的父级form标签；</td>
+                        </tr>
+                        <tr>
+                            <td>data-ajax_url</td>
+                            <td>
+                                <p>
+                                    请求的url；<br>
+                                    指定方式：<br>
+                                    1.data-ajax_common_type为normal则必须设置data-ajax_url；<br>
+                                    2.data-ajax_common_type为other则非必须配置data-ajax_url，如果不配置则根据data-form来获取action|data-ajax_url作为url；
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>data-callback</td>
+                            <td>
+                                <p>
+                                    非必须，与$.Ajax的callback参数一致<span class="red">(注：因为该函数名称是配置在html元素身上，所以为了方便，请务必把该函数定义在window全局作用域,再把函数名称赋值给data-callback参数)</span>；
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="inner-content mt50">
+        <h2>filterXss</h2>
+        <div class="note">
+            <dl>
+                <dt>含义：过滤xss代码;</dt>
+                <dd>使用方法 接收一段文本，返回处理过的字段；</dd>
+                <dd>
+                    <p>example：</p>
+                    <pre class="mt20">
+                        &lt;p style="padding-left: 50px" class="mt20">&lt;button class="button button-normal" id="JS_filterXss">点我过滤&lt;/button>&lt;/p>
+                        &lt;textarea name="" id="JS_filterXss_info" style="width:300px;" rows="3" class="mt20">&lt;script>alert(1);&lt;script>&lt;/textarea>
+                        &lt;div id="JS_filterXss_content" class="mt20">&lt;/div>
+                        &lt;script type="text/javascript">
+                            $('#JS_filterXss').on('click', function(){
+                                var html = $('#JS_filterXss_info').html();
+                                $('#JS_filterXss_content').html( filterXss(html) );
+                            });
+                        &lt;/script>
+                    </pre>
+
+                    <p style="padding-left: 50px" class="mt20"><button class="button button-normal" id="JS_filterXss">点我过滤</button></p>
+                    <textarea name="" id="JS_filterXss_info" style="width:300px;" rows="3" class="mt20"><script>alert(1);<script></textarea>
+                    <div id="JS_filterXss_content" class="mt20"></div>
+                    <script type="text/javascript">
+                        $('#JS_filterXss').on('click', function(){
+                            var html = $('#JS_filterXss_info').html();
+                            $('#JS_filterXss_content').html( filterXss(html) );
+                        });
+                    </script>
+
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="inner-content mt50">
+        <h2 class="red">$.loadBgImg</h2>
+        <div class="note">
+            <dl>
+                <dt>含义：加载背景图片;</dt>
+                <dd>使用方法：$.loadBgImg({ attr | loadImg | imgList | callback })，可不带参数；</dd>
+                <dd>
+                    <p class="mt20">参数说明:</p>
+                    <table width="100%" cellspacing="0" cellspadding="0" class="table mt20">
+                        <tr>
+                            <td width="150">attr</td>
+                            <td>非必须：存放图片地址的属性，默认为data-bg</td>
+                        </tr>
+                        <tr>
+                            <td>loadImg</td>
+                            <td>非必须：加载背景图片的函数体；</td>
+                        </tr>
+                        <tr>
+                            <td>imgList</td>
+                            <td>非必须：需要加载背景图片的dom数组；</td>
+                        </tr>
+                        <tr>
+                            <td>callback</td>
+                            <td>非必须：函数完成以后执行的回调；</td>
+                        </tr>
+                    <table>
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="inner-content mt50">
+        <h2 class='red'>$.lazyImg</h2>
+        <div class="note">
+            <dl>
+                <dt>含义：图片懒加载;</dt>
+                <dd>使用方法：$.lazyImg({ attr | loadType | count | scrollLimit | isLock | scrollTop | scrollBorder | callback })，可不带参数；</dd>
+                <dd>
+                    <p class="mt20">参数说明:</p>
+                    <table width="100%" cellspacing="0" cellspadding="0" class="table mt20">
+                        <tr>
+                            <td width="150">attr</td>
+                            <td>非必须：存放图片地址的属性，默认为data-src</td>
+                        </tr>
+                        <tr>
+                            <td>loadType</td>
+                            <td>非必须：图片加载方式，1：根据屏幕加载 | 2：根据数量加载，默认为1；</td>
+                        </tr>
+                        <tr>
+                            <td>count</td>
+                            <td>非必须：打开网页默认加载的图片数量(loadType为2时有效)；</td>
+                        </tr>
+                        <tr>
+                            <td>scrollLimit</td>
+                            <td>非必须：滚动时间限制，多少毫秒内滚动不计算；</td>
+                        </tr>
+                        <tr>
+                            <td>isLock</td>
+                            <td>非必须：加载功能是否锁定，true：锁定 ｜ false：未锁定；</td>
+                        </tr>
+                        <tr>
+                            <td>scrollTop</td>
+                            <td>非必须：默认滚动的距离；</td>
+                        </tr>
+                        <tr>
+                            <td>scrollBorder</td>
+                            <td>非必须：计算屏幕溢出边界值；</td>
+                        </tr>
+                        <tr>
+                            <td>callback</td>
+                            <td>非必须：函数回调；</td>
+                        </tr>
+                    <table>
                 </dd>
             </dl>
         </div>
